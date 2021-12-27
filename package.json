@@ -1,7 +1,7 @@
 {
 	"name": "fd-obsidian-md-utls",
-	"version": "0.1.0",
-	"description": "Markdown utilities for Obsidian: fixing so-called smart quotes, Bear highlights, and the like.",
+	"version": "0.2.0",
+	"description": "Markdown utilities for Obsidian: fixing so-called smart quotes, Bear highlights, &c.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
