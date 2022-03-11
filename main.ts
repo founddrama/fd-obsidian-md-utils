@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { Editor, MarkdownView, Plugin } from 'obsidian';
 
 const SINGLE_SMART_QUOTE_RX = /[‘’]/g;
 const SINGLE_DUMB_QUOTE = "'";
@@ -48,7 +48,7 @@ export default class FDMarkdownUtilsPlugin extends Plugin {
 
     this.addCommand({
       id: 'fd-md-utils-bear-highlights-command',
-      name: 'Fix highlights from Bear',
+      name: 'Fix Bear highlights',
       editorCallback: (editor: Editor, _view: MarkdownView) => {
         this.replaceWith(editor, BEAR_HIGHLIGHTED_COLON_RX, `:${OBSIDIAN_HIGHLIGHT}`);
         this.replaceWith(editor, BEAR_HIGHLIGHT_RX, OBSIDIAN_HIGHLIGHT);
@@ -57,7 +57,7 @@ export default class FDMarkdownUtilsPlugin extends Plugin {
 
     this.addCommand({
       id: 'fd-md-utils-bear-underlines-to-bold-command',
-      name: 'Make underlines from Bear into bold',
+      name: 'Make Bear underlines into bold',
       editorCallback: (editor: Editor, _view: MarkdownView) => {
         this.replaceWith(editor, BEAR_UNDERLINE_RX, REPLACE_WITH_BOLD);
       }
@@ -65,9 +65,20 @@ export default class FDMarkdownUtilsPlugin extends Plugin {
 
     this.addCommand({
       id: 'fd-md-utils-bear-underlines-to-italic-command',
-      name: 'Make underlines from Bear into italic',
+      name: 'Make Bear underlines into italic',
       editorCallback: (editor: Editor, _view: MarkdownView) => {
         this.replaceWith(editor, BEAR_UNDERLINE_RX, REPLACE_WITH_ITALIC);
+      }
+    });
+
+    this.addCommand({
+      id: 'fd-md-utils-insert-shortdate',
+      name: 'Insert short date',
+      editorCallback: (editor: Editor, _view: MarkdownView) => {
+        editor.replaceRange(
+          Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date()),
+          editor.getCursor()
+        );
       }
     });
   }
